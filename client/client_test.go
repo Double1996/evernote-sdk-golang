@@ -15,14 +15,14 @@ func TestClient(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	url, err := us.GetNoteStoreUrl(EvernoteAuthorToken)
+	user, err := us.GetUser(EvernoteAuthorToken)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(url) < 1 {
-		t.Fatal("Invalid URL")
+	if user != nil && user.Name != nil {
+		t.Logf("User Info: %#v", user)
 	}
-	ns, err := c.GetNoteStoreWithURL(url)
+	ns, err := c.GetNoteStore(EvernoteAuthorToken)
 	if err != nil {
 		t.Fatal(err)
 	}

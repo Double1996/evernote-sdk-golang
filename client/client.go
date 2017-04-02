@@ -20,6 +20,7 @@ type EvernoteClient struct {
 	host        string
 	oauthClient *oauth.Consumer
 	userStore   *userstore.UserStoreClient
+	noteStore   *notestore.NoteStoreClient
 }
 
 func NewClient(key, secret string, envType EnvironmentType) *EvernoteClient {
@@ -68,16 +69,23 @@ func (c *EvernoteClient) GetUserStore() (*userstore.UserStoreClient, error) {
 }
 
 func (c *EvernoteClient) GetNoteStore(authenticationToken string) (*notestore.NoteStoreClient, error) {
+	if c.noteStore != nil {
+		return c.noteStore, nil
+	}
 	us, err := c.GetUserStore()
 	if err != nil {
 		return nil, err
 	}
-	notestoreURL, err := us.GetNoteStoreUrl(authenticationToken)
+	userUrls, err := us.GetUserUrls(authenticationToken)
 	if err != nil {
 		return nil, err
 	}
-	ns, err := c.GetNoteStoreWithURL(notestoreURL)
-	return ns, nil
+	evernoteNoteTrans, err := thrift.NewTHttpClient(userUrls.GetNoteStoreUrl())
+	if err != nil {
+		return nil, err
+	}
+	c.noteStore = notestore.NewNoteStoreClientFactory(evernoteNoteTrans, thrift.NewTBinaryProtocolFactoryDefault())
+	return c.noteStore, nil
 }
 
 func (c *EvernoteClient) GetNoteStoreWithURL(notestoreURL string) (*notestore.NoteStoreClient, error) {
