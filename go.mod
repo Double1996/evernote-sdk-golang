@@ -1,4 +1,4 @@
-module github.com/dreampuf/evernote-sdk-golang
+module github.com/double1996/evernote-sdk-golang
 
 require (
 	github.com/apache/thrift v0.0.0-20181019115558-cd829a0b9a5c

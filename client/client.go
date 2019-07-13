@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"fmt"
+
 	"github.com/apache/thrift/lib/go/thrift"
 	"github.com/dreampuf/evernote-sdk-golang/edam"
 	"github.com/mrjones/oauth"
@@ -28,6 +29,8 @@ func NewClient(key, secret string, envType EnvironmentType) *EvernoteClient {
 		host = "sandbox.evernote.com"
 	} else if envType == YINXIANG {
 		host = "app.yinxiang.com"
+	} else if envType == YINXIANGSANBOX {
+		host = "sandbox.yinxiang.com"
 	}
 	client := oauth.NewConsumer(
 		key, secret,
