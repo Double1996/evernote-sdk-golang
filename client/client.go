@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/apache/thrift/lib/go/thrift"
-	"github.com/dreampuf/evernote-sdk-golang/edam"
+	"github.com/double1996/evernote-sdk-golang/edam"
 	"github.com/mrjones/oauth"
 )
 
