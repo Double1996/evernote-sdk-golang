@@ -15,6 +15,7 @@ const (
 	SANDBOX EnvironmentType = iota
 	PRODUCTION
 	YINXIANG
+	SANDBOX_YINXIANG
 )
 
 type EvernoteClient struct {
@@ -29,6 +30,8 @@ func NewClient(key, secret string, envType EnvironmentType) *EvernoteClient {
 		host = "sandbox.evernote.com"
 	} else if envType == YINXIANG {
 		host = "app.yinxiang.com"
+	} else if envType == SANDBOX_YINXIANG {
+		host = "sandbox-www.yinxiang.com"
 	}
 	client := oauth.NewConsumer(
 		key, secret,
