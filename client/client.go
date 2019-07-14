@@ -31,7 +31,7 @@ func NewClient(key, secret string, envType EnvironmentType) *EvernoteClient {
 	} else if envType == YINXIANG {
 		host = "app.yinxiang.com"
 	} else if envType == SANDBOX_YINXIANG {
-		host = "sandbox-www.yinxiang.com"
+		host = "sandbox.yinxiang.com"
 	}
 	client := oauth.NewConsumer(
 		key, secret,
